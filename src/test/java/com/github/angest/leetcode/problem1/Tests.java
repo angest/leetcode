@@ -15,4 +15,12 @@ public class Tests extends LeetcodeTests {
                 solution.twoSum(getValue("input1.nums", int[].class), getValue("input1.target", int.class))
         );
     }
+
+    @Test
+    public void test2() {
+        assertArrayEquals(
+                getValue("output2", int[].class),
+                solution.twoSum(getValue("input2.nums", int[].class), getValue("input2.target", int.class))
+        );
+    }
 }
