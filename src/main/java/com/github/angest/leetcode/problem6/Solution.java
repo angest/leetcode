@@ -6,31 +6,20 @@ public class Solution {
             return s;
         }
 
-        int loop = numRows - 1;
-        int numColumns = s.length() / (2 * loop) + 1;
-        numColumns = numColumns * loop;
-        char[][] matrix = new char[numRows][numColumns];
-
-        int x = 0;
-        int y = 0;
-        for (int i = 0; i < s.length(); i++) {
-            matrix[x][y] = s.charAt(i);
-            if (y % loop == 0 && x < loop) {
-                x++;
-            } else {
-                y++;
-                x--;
-            }
-        }
-
-        char[] result = new char[s.length()];
+        char[] chars = s.toCharArray();
+        char[] result = new char[chars.length];
+        int loop = 2 * numRows - 2;
         int index = 0;
-        for (char[] row : matrix) {
-            for (char c : row) {
-                if (c != 0) {
-                    result[index++] = c;
-                }
+        for (int i = 0; i < result.length; i++) {
+            result[i] = chars[index];
+            int next = index / loop * loop + loop - index % loop;
+            if (next <= index) {
+                next += loop;
             }
+            if (next > result.length - 1) {
+                next = Math.min(next % loop, loop - next % loop) + 1;
+            }
+            index = next;
         }
 
         return new String(result);
