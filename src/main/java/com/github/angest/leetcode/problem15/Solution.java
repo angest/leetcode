@@ -4,41 +4,60 @@ import java.util.*;
 
 public class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        Set<List<Integer>> results = new HashSet<>();
+        List<List<Integer>> results = new ArrayList<>();
 
-        Map<Integer, List<Integer>> indexMap = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            List<Integer> indexes = indexMap.computeIfAbsent(-nums[i], s -> new ArrayList<>());
-            if (indexes.size() < 3) {
-                indexes.add(i);
+        Map<Integer, Integer> numMap = new HashMap<>();
+        for (int num : nums) {
+            int times = numMap.computeIfAbsent(num, s -> 0);
+            if (times < 3) {
+                numMap.put(num, times + 1);
             }
         }
 
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                List<Integer> indexes = indexMap.get(nums[i] + nums[j]);
-                if (containsOther(indexes, i, j)) {
-                    List<Integer> result = new ArrayList<>();
-                    result.add(nums[i]);
-                    result.add(nums[j]);
-                    result.add(-nums[i] - nums[j]);
-                    result.sort(Integer::compareTo);
-                    results.add(result);
+        if (numMap.containsKey(0) && numMap.get(0) > 2) {
+            addResult(results, 0, 0, 0);
+        }
+
+        numMap.forEach((key, value) -> {
+            if (key != 0 && value > 1 && numMap.containsKey(-2 * key)) {
+                if (key > 0) {
+                    addResult(results, -2 * key, key, key);
+                } else {
+                    addResult(results, key, key, -2 * key);
+                }
+            }
+        });
+
+        Integer[] keys = numMap.keySet().toArray(new Integer[0]);
+        Arrays.sort(keys);
+
+        for (int i = 0; i < keys.length - 2; i++) {
+            int left = i + 1;
+            int right = keys.length - 1;
+            while (left < right) {
+                int sum = keys[i] + keys[left] + keys[right];
+                if (sum < 0) {
+                    left++;
+                }
+                if (sum == 0) {
+                    addResult(results, keys[i], keys[left], keys[right]);
+                    left++;
+                    right--;
+                }
+                if (sum > 0) {
+                    right--;
                 }
             }
         }
 
-        return new ArrayList<>(results);
+        return results;
     }
 
-    private boolean containsOther(List<Integer> indexes, int i, int j) {
-        if (indexes != null) {
-            for (int index : indexes) {
-                if (index != i && index != j) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    private void addResult(List<List<Integer>> results, int i, int j, int k) {
+        List<Integer> result = new ArrayList<>();
+        result.add(i);
+        result.add(j);
+        result.add(k);
+        results.add(result);
     }
 }

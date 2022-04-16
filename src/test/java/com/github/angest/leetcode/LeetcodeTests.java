@@ -2,6 +2,7 @@ package com.github.angest.leetcode;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -9,6 +10,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 public class LeetcodeTests {
@@ -28,6 +30,10 @@ public class LeetcodeTests {
         } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    protected static void assertListEquals(List<?> expected, List<?> actual) {
+        Assertions.assertTrue(expected.containsAll(actual) && actual.containsAll(expected));
     }
 
     private String getJsonString(String src) throws IOException, URISyntaxException {

@@ -6,14 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class Tests extends LeetcodeTests {
     private Solution solution = new Solution();
 
     @Test
     public void test1() {
-        assertEquals(
+        assertListEquals(
                 getValue("output1", new TypeReference<List<List<Integer>>>() {
                 }),
                 solution.threeSum(getValue("input1", int[].class))
@@ -22,7 +20,7 @@ public class Tests extends LeetcodeTests {
 
     @Test
     public void test2() {
-        assertEquals(
+        assertListEquals(
                 getValue("output2", new TypeReference<List<List<Integer>>>() {
                 }),
                 solution.threeSum(getValue("input2", int[].class))
@@ -31,7 +29,7 @@ public class Tests extends LeetcodeTests {
 
     @Test
     public void test3() {
-        assertEquals(
+        assertListEquals(
                 getValue("output3", new TypeReference<List<List<Integer>>>() {
                 }),
                 solution.threeSum(getValue("input3", int[].class))
@@ -40,10 +38,55 @@ public class Tests extends LeetcodeTests {
 
     @Test
     public void test4() {
-        assertEquals(
+        assertListEquals(
                 getValue("output4", new TypeReference<List<List<Integer>>>() {
                 }),
                 solution.threeSum(getValue("input4", int[].class))
+        );
+    }
+
+    @Test
+    public void test5() {
+        assertListEquals(
+                getValue("output5", new TypeReference<List<List<Integer>>>() {
+                }),
+                solution.threeSum(getValue("input5", int[].class))
+        );
+    }
+
+    @Test
+    public void test6() {
+        assertListEquals(
+                getValue("output6", new TypeReference<List<List<Integer>>>() {
+                }),
+                solution.threeSum(getValue("input6", int[].class))
+        );
+    }
+
+    @Test
+    public void test7() {
+        assertListEquals(
+                getValue("output7", new TypeReference<List<List<Integer>>>() {
+                }),
+                solution.threeSum(getValue("input7", int[].class))
+        );
+    }
+
+    @Test
+    public void test8() {
+        assertListEquals(
+                getValue("output8", new TypeReference<List<List<Integer>>>() {
+                }),
+                solution.threeSum(getValue("input8", int[].class))
+        );
+    }
+
+    @Test
+    public void test9() {
+        assertListEquals(
+                getValue("output9", new TypeReference<List<List<Integer>>>() {
+                }),
+                solution.threeSum(getValue("input9", int[].class))
         );
     }
 }
