@@ -1,38 +1,41 @@
 package com.github.angest.leetcode.problem17;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Solution {
     public List<String> letterCombinations(String digits) {
-        Map<Character, String> letterMap = new HashMap<>();
-        letterMap.put('2', "abc");
-        letterMap.put('3', "def");
-        letterMap.put('4', "ghi");
-        letterMap.put('5', "jkl");
-        letterMap.put('6', "mno");
-        letterMap.put('7', "pqrs");
-        letterMap.put('8', "tuv");
-        letterMap.put('9', "wxyz");
-
-        Set<String> result = new HashSet<>();
-        for (char digit : digits.toCharArray()) {
-            addCombinations(result, letterMap.get(digit));
+        if (digits.length() == 0) {
+            return new ArrayList<>();
         }
 
-        return new ArrayList<>(result);
-    }
+        List<List<String>> letters = Arrays.asList(
+                Arrays.asList("a", "b", "c"),
+                Arrays.asList("d", "e", "f"),
+                Arrays.asList("g", "h", "i"),
+                Arrays.asList("j", "k", "l"),
+                Arrays.asList("m", "n", "o"),
+                Arrays.asList("p", "q", "r", "s"),
+                Arrays.asList("t", "u", "v"),
+                Arrays.asList("w", "x", "y", "z")
+        );
 
-    private void addCombinations(Set<String> result, String letters) {
-        String[] strings = result.toArray(new String[0]);
-        if (strings.length < 1) {
-            strings = new String[]{""};
+        if (digits.length() == 1) {
+            return letters.get(digits.charAt(0) - '2');
         }
 
-        result.clear();
-        for (String s : strings) {
-            for (char c : letters.toCharArray()) {
-                result.add(s + c);
+        List<String> result = new ArrayList<>(letters.get(digits.charAt(0) - '2'));
+        for (int i = 1; i < digits.length(); i++) {
+            List<String> newResult = new ArrayList<>();
+            for (String s1 : result) {
+                for (String s2 : letters.get(digits.charAt(i) - '2')) {
+                    newResult.add(s1 + s2);
+                }
             }
+            result = newResult;
         }
+
+        return result;
     }
 }
