@@ -33,7 +33,7 @@ public class LeetcodeTests {
     }
 
     protected static void assertListEquals(List<?> expected, List<?> actual) {
-        Assertions.assertTrue(expected.containsAll(actual) && actual.containsAll(expected));
+        Assertions.assertTrue(expected.size() == actual.size() && expected.containsAll(actual) && actual.containsAll(expected));
     }
 
     private String getJsonString(String src) throws IOException, URISyntaxException {
