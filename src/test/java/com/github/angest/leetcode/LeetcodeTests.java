@@ -32,8 +32,24 @@ public class LeetcodeTests {
         }
     }
 
-    protected static void assertListEquals(List<?> expected, List<?> actual) {
-        Assertions.assertTrue(expected.size() == actual.size() && expected.containsAll(actual) && actual.containsAll(expected));
+    protected <T> void assertListEquals(List<T> expected, List<T> actual) {
+        Assertions.assertTrue(listEquals(expected, actual));
+    }
+
+    protected <T> void assertListOfListEquals(List<List<T>> expected, List<List<T>> actual) {
+        Assertions.assertTrue(listOfListEquals(expected, actual));
+    }
+
+    private <T> boolean listEquals(List<T> list1, List<T> list2) {
+        return list1.size() == list2.size()
+                && list1.containsAll(list2)
+                && list2.containsAll(list1);
+    }
+
+    private <T> boolean listOfListEquals(List<List<T>> listOfList1, List<List<T>> listOfList2) {
+        return listOfList1.size() == listOfList2.size()
+                && listOfList1.stream().allMatch(list1 -> listOfList2.stream().anyMatch(list2 -> listEquals(list1, list2)))
+                && listOfList2.stream().allMatch(list2 -> listOfList1.stream().anyMatch(list1 -> listEquals(list1, list2)));
     }
 
     private String getJsonString(String src) throws IOException, URISyntaxException {
