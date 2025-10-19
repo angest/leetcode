@@ -1,34 +1,18 @@
 package com.github.angest.leetcode.problem56;
 
 import com.github.angest.leetcode.LeetcodeTests;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class Tests extends LeetcodeTests {
-    private Solution solution = new Solution();
+class Tests extends LeetcodeTests {
+    private final Solution solution = new Solution();
 
-    @Test
-    public void test1() {
-        assertArrayEquals(
-                getValue("output1", int[][].class),
-                solution.merge(getValue("input1", int[][].class))
-        );
-    }
-
-    @Test
-    public void test2() {
-        assertArrayEquals(
-                getValue("output2", int[][].class),
-                solution.merge(getValue("input2", int[][].class))
-        );
-    }
-
-    @Test
-    public void test3() {
-        assertArrayEquals(
-                getValue("output3", int[][].class),
-                solution.merge(getValue("input3", int[][].class))
-        );
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3})
+    void test(int number) {
+        assertThat(solution.merge(getValue("input" + number, int[][].class)))
+                .isEqualTo(getValue("output" + number, int[][].class));
     }
 }

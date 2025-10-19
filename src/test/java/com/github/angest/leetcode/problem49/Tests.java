@@ -2,37 +2,23 @@ package com.github.angest.leetcode.problem49;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.angest.leetcode.LeetcodeTests;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
-public class Tests extends LeetcodeTests {
-    private Solution solution = new Solution();
+import static org.assertj.core.api.Assertions.assertThat;
 
-    @Test
-    public void test1() {
-        assertListOfListEquals(
-                getValue("output1", new TypeReference<List<List<String>>>() {
-                }),
-                solution.groupAnagrams(getValue("input1", String[].class))
-        );
-    }
+class Tests extends LeetcodeTests {
+    private final Solution solution = new Solution();
 
-    @Test
-    public void tes2() {
-        assertListOfListEquals(
-                getValue("output2", new TypeReference<List<List<String>>>() {
-                }),
-                solution.groupAnagrams(getValue("input2", String[].class))
-        );
-    }
-
-    @Test
-    public void tes3() {
-        assertListOfListEquals(
-                getValue("output3", new TypeReference<List<List<String>>>() {
-                }),
-                solution.groupAnagrams(getValue("input3", String[].class))
-        );
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3})
+    void test(int number) {
+        assertThat(solution.groupAnagrams(getValue("input" + number, String[].class)))
+                .usingRecursiveComparison()
+                .ignoringCollectionOrder()
+                .isEqualTo(getValue("output" + number, new TypeReference<List<List<String>>>() {
+                }));
     }
 }

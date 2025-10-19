@@ -1,30 +1,20 @@
 package com.github.angest.leetcode.problem48;
 
 import com.github.angest.leetcode.LeetcodeTests;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class Tests extends LeetcodeTests {
-    private Solution solution = new Solution();
+class Tests extends LeetcodeTests {
+    private final Solution solution = new Solution();
 
-    @Test
-    public void test1() {
-        int[][] matrix = getValue("input1", int[][].class);
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2})
+    void test(int number) {
+        int[][] matrix = getValue("input" + number, int[][].class);
         solution.rotate(matrix);
-        assertArrayEquals(
-                getValue("output1", int[][].class),
-                matrix
-        );
-    }
-
-    @Test
-    public void test2() {
-        int[][] matrix = getValue("input2", int[][].class);
-        solution.rotate(matrix);
-        assertArrayEquals(
-                getValue("output2", int[][].class),
-                matrix
-        );
+        assertThat(matrix)
+                .isEqualTo(getValue("output" + number, int[][].class));
     }
 }

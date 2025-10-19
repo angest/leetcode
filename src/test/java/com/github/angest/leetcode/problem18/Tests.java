@@ -2,28 +2,21 @@ package com.github.angest.leetcode.problem18;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.github.angest.leetcode.LeetcodeTests;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
-public class Tests extends LeetcodeTests {
-    private Solution solution = new Solution();
+import static org.assertj.core.api.Assertions.assertThat;
 
-    @Test
-    public void test1() {
-        assertListEquals(
-                getValue("output1", new TypeReference<List<List<Integer>>>() {
-                }),
-                solution.fourSum(getValue("input1.nums", int[].class), getValue("input1.target", int.class))
-        );
-    }
+class Tests extends LeetcodeTests {
+    private final Solution solution = new Solution();
 
-    @Test
-    public void test2() {
-        assertListEquals(
-                getValue("output2", new TypeReference<List<List<Integer>>>() {
-                }),
-                solution.fourSum(getValue("input2.nums", int[].class), getValue("input2.target", int.class))
-        );
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2})
+    void test(int number) {
+        assertThat(solution.fourSum(getValue("input" + number + ".nums", int[].class), getValue("input" + number + ".target", int.class)))
+                .containsExactlyInAnyOrderElementsOf(getValue("output" + number, new TypeReference<List<List<Integer>>>() {
+                }));
     }
 }

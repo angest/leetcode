@@ -1,24 +1,20 @@
 package com.github.angest.leetcode.problem75;
 
 import com.github.angest.leetcode.LeetcodeTests;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class Tests extends LeetcodeTests {
-    private Solution solution = new Solution();
+class Tests extends LeetcodeTests {
+    private final Solution solution = new Solution();
 
-    @Test
-    public void test1() {
-        int[] result = getValue("input1", int[].class);
-        solution.sortColors(result);
-        assertArrayEquals(getValue("output1", int[].class), result);
-    }
-
-    @Test
-    public void test2() {
-        int[] result = getValue("input2", int[].class);
-        solution.sortColors(result);
-        assertArrayEquals(getValue("output2", int[].class), result);
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2})
+    void test(int number) {
+        int[] nums = getValue("input" + number, int[].class);
+        solution.sortColors(nums);
+        assertThat(nums)
+                .containsExactly(getValue("output" + number, int[].class));
     }
 }

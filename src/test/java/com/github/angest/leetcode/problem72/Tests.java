@@ -1,34 +1,18 @@
 package com.github.angest.leetcode.problem72;
 
 import com.github.angest.leetcode.LeetcodeTests;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class Tests extends LeetcodeTests {
-    private Solution solution = new Solution();
+class Tests extends LeetcodeTests {
+    private final Solution solution = new Solution();
 
-    @Test
-    public void test1() {
-        assertEquals(
-                getValue("output1", int.class),
-                solution.minDistance(getValue("input1.word1", String.class), getValue("input1.word2", String.class))
-        );
-    }
-
-    @Test
-    public void test2() {
-        assertEquals(
-                getValue("output2", int.class),
-                solution.minDistance(getValue("input2.word1", String.class), getValue("input2.word2", String.class))
-        );
-    }
-
-    @Test
-    public void test3() {
-        assertEquals(
-                getValue("output3", int.class),
-                solution.minDistance(getValue("input3.word1", String.class), getValue("input3.word2", String.class))
-        );
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3})
+    void test(int number) {
+        assertThat(solution.minDistance(getValue("input" + number + ".word1", String.class), getValue("input" + number + ".word2", String.class)))
+                .isEqualTo(getValue("output" + number, int.class));
     }
 }

@@ -1,18 +1,18 @@
 package com.github.angest.leetcode.problem2;
 
 import com.github.angest.leetcode.LeetcodeTests;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class Tests extends LeetcodeTests {
-    private Solution solution = new Solution();
+class Tests extends LeetcodeTests {
+    private final Solution solution = new Solution();
 
-    @Test
-    public void test1() {
-        assertEquals(
-                getValue("output1", ListNode.class),
-                solution.addTwoNumbers(getValue("input1.l1", ListNode.class), getValue("input1.l2", ListNode.class))
-        );
+    @ParameterizedTest
+    @ValueSource(ints = {1})
+    void test(int number) {
+        assertThat(solution.addTwoNumbers(getValue("input" + number + ".l1", ListNode.class), getValue("input" + number + ".l2", ListNode.class)))
+                .isEqualTo(getValue("output" + number, ListNode.class));
     }
 }

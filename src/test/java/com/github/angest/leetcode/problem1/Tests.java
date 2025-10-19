@@ -1,26 +1,18 @@
 package com.github.angest.leetcode.problem1;
 
 import com.github.angest.leetcode.LeetcodeTests;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class Tests extends LeetcodeTests {
-    private Solution solution = new Solution();
+class Tests extends LeetcodeTests {
+    private final Solution solution = new Solution();
 
-    @Test
-    public void test1() {
-        assertArrayEquals(
-                getValue("output1", int[].class),
-                solution.twoSum(getValue("input1.nums", int[].class), getValue("input1.target", int.class))
-        );
-    }
-
-    @Test
-    public void test2() {
-        assertArrayEquals(
-                getValue("output2", int[].class),
-                solution.twoSum(getValue("input2.nums", int[].class), getValue("input2.target", int.class))
-        );
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2})
+    void test(int number) {
+        assertThat(solution.twoSum(getValue("input" + number + ".nums", int[].class), getValue("input" + number + ".target", int.class)))
+                .containsExactly(getValue("output" + number, int[].class));
     }
 }
